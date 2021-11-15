@@ -1,23 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import InputMatrix from './inputMatrix';
 
 function App() {
+  var randomMatrix=()=>{
+    var generatedArray = Array.from(Array(5), () => new Array(6));
+    for(var i=0;i<5;i++)
+      for(var j=0;j<6;j++)
+        generatedArray[i][j]=Math.floor(Math.random() * 8) + 1;
+    return generatedArray;
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <InputMatrix randomArray={randomMatrix()}/>
     </div>
   );
 }
