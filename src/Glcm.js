@@ -1,5 +1,4 @@
 var Glcm=(params)=>{
-    console.log(params)
     var glcmArray;
     var assign0= async()=>{
         glcmArray= [ [0,0,0,0,0,0,0,0],
@@ -18,7 +17,6 @@ var Glcm=(params)=>{
             for(var j=0;j<params.randomMatrix[i].length-1;j++){
                 var c=params.randomMatrix[i][j];
                 var r=params.randomMatrix[i][j+1];
-                console.log(r)
                 if(c!==undefined)
                 matrix[r-1][c-1]+=1;
             }
