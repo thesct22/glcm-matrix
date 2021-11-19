@@ -9,7 +9,8 @@ import SetMatrix from './components/SetMatrix';
 function App() {
   var [rows, setRows]=useState(6);
   var [cols, setCols]=useState(5);
-  var [dialValue, setDialValue] = useState(0)
+  var [degreeValue, setDegreeValue] = useState(0)
+  var [distanceValue, setDistnceValue] = useState(2)
 
   
 
@@ -17,14 +18,18 @@ function App() {
   var [randomMatrix,setRandomMatrix] =useState(MakeRandomMatrix(6,5));
 
   var setMatrix=()=>{
+    setDegreeValue(0);
+    setDistnceValue(2);
     setRandomMatrix(MakeRandomMatrix(rows,cols));
   };
 
   const customRows=(event)=>{
-    setRows(event.target.value)
+    var num=parseInt(event.target.value);
+    setRows(isNaN(num)?0:num<3?3:num);
   }
   const customCols=(event)=>{
-    setCols(event.target.value)
+    var num=parseInt(event.target.value);
+    setCols(isNaN(num)?0:num<3?3:num);
   }
 
   return (
@@ -33,7 +38,7 @@ function App() {
         
         <SetMatrix cols={cols} rows={rows} customCols={customCols} customRows={customRows} setMatrix={setMatrix}/>
 
-        <GlcmProperties dialValue={dialValue} setDialValue={setDialValue}/>
+        <GlcmProperties degreeValue={degreeValue} setDegreeValue={setDegreeValue} distanceValue={distanceValue} setDistanceValue={setDistnceValue} rows={rows} cols={cols}/>
 
         <div className='container'>
           <div className='row'>
@@ -44,7 +49,7 @@ function App() {
             </div>
             <div className="col-12">
               <div className="form-outline">
-                <Glcm randomMatrix={randomMatrix}/>
+                <Glcm randomMatrix={randomMatrix} degreeValue={degreeValue} distanceValue={distanceValue}/>
               </div>
             </div>
           </div>

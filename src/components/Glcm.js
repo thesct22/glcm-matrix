@@ -12,14 +12,44 @@ var Glcm=(params)=>{
                 ]
     }
     var assign=async (matrix)=>{
+        var i,j,c,r;
         if(params)
-            for(var i=0;i<params.randomMatrix.length;i++)
-                for(var j=0;j<params.randomMatrix[i].length-1;j++){
-                    var c=params.randomMatrix[i][j];
-                    var r=params.randomMatrix[i][j+1];
-                    if(c!==undefined)
-                        matrix[r-1][c-1]+=1;
-                }
+            if(params.degreeValue===0){
+                for(i=0;i<params.randomMatrix.length;i++)
+                    for(j=0;j<params.randomMatrix[i].length-params.distanceValue+1;j++){
+                        c=params.randomMatrix[i][j];
+                        r=params.randomMatrix[i][j+params.distanceValue-1];
+                        if(c!==undefined)
+                            matrix[r-1][c-1]+=1;
+                    }
+            }
+            else if(params.degreeValue===90){
+                for(i=0;i<params.randomMatrix[0].length;i++)
+                    for(j=0;j<params.randomMatrix.length-params.distanceValue+1;j++){
+                        c=params.randomMatrix[j][i];
+                        r=params.randomMatrix[j+params.distanceValue-1][i];
+                        if(c!==undefined)
+                            matrix[r-1][c-1]+=1;
+                    }
+            }
+            else if(params.degreeValue===45){
+                for(i=params.distanceValue-1;i<params.randomMatrix.length;i++)
+                    for(j=0;j<params.randomMatrix[i].length-params.distanceValue+1;j++){
+                        c=params.randomMatrix[i-params.distanceValue+1][j+params.distanceValue-1];
+                        r=params.randomMatrix[i][j];
+                        if(c!==undefined)
+                            matrix[r-1][c-1]+=1;
+                    }
+            }
+            else if(params.degreeValue===135){
+                for(i=0;i<params.randomMatrix.length-params.distanceValue+1;i++)
+                    for(j=0;j<params.randomMatrix[i].length-params.distanceValue+1;j++){
+                        c=params.randomMatrix[i][j];
+                        r=params.randomMatrix[i+params.distanceValue-1][j+params.distanceValue-1];
+                        if(c!==undefined)
+                            matrix[r-1][c-1]+=1;
+                    }
+            }
     }
     assign0().then(assign(glcmArray));
     
@@ -36,7 +66,7 @@ var Glcm=(params)=>{
                         }
                     </tr>
                     {glcmArray.map((item,index)=>{
-                        return(
+                        return( 
                             <tr key={index}>
                                 {item.map((innerItem,innerIndex)=>{
                                     var string=index+"_"+innerIndex

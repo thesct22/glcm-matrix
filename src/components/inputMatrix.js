@@ -1,7 +1,7 @@
 var InputMatrix=(params)=>{
     return(
         <div id="input">
-            <table style={{"borderWidth":"2px", 'borderColor':"#000000", 'borderStyle':'solid','margin':'20px'}}>
+            <table style={{'margin':'20px'}}>
                 <tbody>
                     {params.randomMatrix.map((item,index)=>{
                         return(
