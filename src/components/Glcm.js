@@ -1,16 +1,35 @@
+import { useState } from "react";
 var Glcm=(params)=>{
     var glcmArray;
+    var [forceUpdate,setForceUpdate]=useState(0);
     var assign0= async()=>{
-        glcmArray= [ [0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0,0]
-                ]
+        glcmArray= [ 
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0]
+        ]
     }
+
+    var changeColour=(index,innerIndex)=>{
+        let newColourMatrix=params.GlcmColour;
+        const hexValues = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'];
+        let hex = '#';
+        for(let i = 0; i < 6; i++){
+            const index = Math.floor(Math.random() * hexValues.length)
+            hex += hexValues[index];
+        }
+        setForceUpdate(hex);
+        newColourMatrix[index][innerIndex]=hex;
+        params.setGlcmColour(newColourMatrix);
+        console.log(newColourMatrix)
+
+    }
+
     var assign=async (matrix)=>{
         var i,j,c,r;
         if(params)
@@ -71,7 +90,13 @@ var Glcm=(params)=>{
                                 {item.map((innerItem,innerIndex)=>{
                                     var string=index+"_"+innerIndex
                                     return(
-                                        <td key={string} style={{"borderWidth":"2px", 'borderColor':"#000000", 'borderStyle':'solid','padding':'10px','margin':'0px'}}>{innerItem}</td>
+                                        <td key={string} 
+                                            style={{"borderWidth":"2px", 'borderColor':"#000000", 'borderStyle':'solid','padding':'10px','margin':'0px'}}
+                                            bgcolor={params.GlcmColour[index][innerIndex]}
+                                            onClick={()=>changeColour(index,innerIndex)}
+                                        >
+                                            {innerItem}
+                                        </td>
                                     )
                                 })}
                                 <td key="row_number" style={{'padding':'10px','margin':'0px'}}>{index+1}</td>

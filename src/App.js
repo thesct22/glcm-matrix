@@ -12,7 +12,14 @@ function App() {
   var [degreeValue, setDegreeValue] = useState(0)
   var [distanceValue, setDistnceValue] = useState(2)
 
-  
+  let colourGlcm=[]
+  for(var ii=0;ii<8;ii++){
+      let innerColourGlcm=[]
+      for(var jj=0;jj<8;jj++)
+          innerColourGlcm.push(`#FFFFFF`)
+      colourGlcm.push(innerColourGlcm);
+  }
+  var [GlcmColour,setGlcmColour]=useState(colourGlcm);
 
 
   var [randomMatrix,setRandomMatrix] =useState(MakeRandomMatrix(6,5));
@@ -44,12 +51,12 @@ function App() {
           <div className='row'>
             <div className="col-12">
               <div className="form-outline">
-                <InputMatrix randomMatrix={randomMatrix}/>
+                <InputMatrix randomMatrix={randomMatrix} GlcmColour={GlcmColour} degreeValue={degreeValue} distanceValue={distanceValue} setGlcmColour={setGlcmColour}/>
               </div>
             </div>
             <div className="col-12">
               <div className="form-outline">
-                <Glcm randomMatrix={randomMatrix} degreeValue={degreeValue} distanceValue={distanceValue}/>
+                <Glcm randomMatrix={randomMatrix} degreeValue={degreeValue} distanceValue={distanceValue} GlcmColour={GlcmColour} setGlcmColour={setGlcmColour}/>
               </div>
             </div>
           </div>
