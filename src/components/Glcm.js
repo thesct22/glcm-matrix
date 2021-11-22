@@ -1,8 +1,17 @@
 import { useState } from "react";
 var Glcm=(params)=>{
-    var glcmArray;
+    var [glcmArray,setGlcmArray]=useState( [ 
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0]
+    ]);
     var [forceUpdate,setForceUpdate]=useState(0);
-    var assign0= async()=>{
+    var assign0=()=>{
         glcmArray= [ 
             [0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0],
@@ -14,6 +23,7 @@ var Glcm=(params)=>{
             [0,0,0,0,0,0,0,0]
         ]
     }
+   
 
     var changeColour=(index,innerIndex)=>{
         let newColourMatrix=params.GlcmColour;
@@ -23,14 +33,13 @@ var Glcm=(params)=>{
             const index = Math.floor(Math.random() * hexValues.length)
             hex += hexValues[index];
         }
-        setForceUpdate(hex);
-        newColourMatrix[index][innerIndex]=hex;
+        
+        setForceUpdate(forceUpdate===hex?"":hex);
+        newColourMatrix[index][innerIndex]=newColourMatrix[index][innerIndex]==="#FFFFFF"?hex:"#FFFFFF";
         params.setGlcmColour(newColourMatrix);
-        console.log(newColourMatrix)
-
     }
 
-    var assign=async (matrix)=>{
+    var assign=(matrix)=>{
         var i,j,c,r;
         if(params)
             if(params.degreeValue===0){
@@ -70,42 +79,155 @@ var Glcm=(params)=>{
                     }
             }
     }
-    assign0().then(assign(glcmArray));
+    assign0();
+    assign(glcmArray);
     
+    var initialInputColour=[]
+    for(var ii=0;ii<params.randomMatrix.length;ii++){
+        let innerInputColour=[]
+        for(var jj=0;jj<params.randomMatrix[ii].length;jj++){
+            innerInputColour.push("#FFFFFF");
+        }
+        initialInputColour.push(innerInputColour);
+    }
+    var [inputColour, setInputColour]=useState(initialInputColour)
+    var findColoured=()=>{
+        var w,q;
+        for(var i=0;i<8;i++){
+            for(var j=0;j<8;j++){
+                if(params.GlcmColour[i][j]!=="#FFFFFF"){
+                    if(params.degreeValue===0){
+                        for(q=0;q<params.randomMatrix.length;q++){
+                            for(w=0;w<params.randomMatrix[q].length-params.distanceValue+1;w++){
+                                if(params.randomMatrix[q][w]===j+1&&params.randomMatrix[q][w+params.distanceValue-1]===i+1){
+                                    inputColour[q][w]=params.GlcmColour[i][j];
+                                    inputColour[q][w+params.distanceValue-1]=params.GlcmColour[i][j];                                    
+                                }
+                            }
+                        }
+                    }
+                    else if(params.degreeValue===90){
+                        for(q=0;q<params.randomMatrix.length-params.distanceValue+1;q++){
+                            for(w=0;w<params.randomMatrix[q].length;w++){
+                                if(params.randomMatrix[q][w]===j+1&&params.randomMatrix[q+params.distanceValue-1][w]===i+1){
+                                    inputColour[q][w]=params.GlcmColour[i][j];
+                                    inputColour[q+params.distanceValue-1][w]=params.GlcmColour[i][j];                                    
+                                }
+                            }
+                        }
+                    }
+                    else if(params.degreeValue===45){
+                        for(q=params.distanceValue-1;q<params.randomMatrix.length;q++){
+                            for(w=0;w<params.randomMatrix[q].length-params.distanceValue+1;w++){
+                                if(params.randomMatrix[q][w]===i+1&&params.randomMatrix[q-params.distanceValue+1][w+params.distanceValue-1]===j+1){
+                                    inputColour[q][w]=params.GlcmColour[i][j];
+                                    inputColour[q-params.distanceValue+1][w+params.distanceValue-1]=params.GlcmColour[i][j];                                    
+                                }
+                            }
+                        }
+                    }
+                    else if(params.degreeValue===135){
+                        for(q=0;q<params.randomMatrix.length-params.distanceValue+1;q++){
+                            for(w=0;w<params.randomMatrix[q].length-params.distanceValue+1;w++){
+                                if(params.randomMatrix[q][w]===j+1&&params.randomMatrix[q+params.distanceValue-1][w+params.distanceValue-1]===i+1){
+                                    inputColour[q][w]=params.GlcmColour[i][j];
+                                    inputColour[q+params.distanceValue-1][w+params.distanceValue-1]=params.GlcmColour[i][j];                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    findColoured()
+
+    var assign0ToInputColour=(array)=>{
+        for(var ii=0;ii<8;ii++){
+            let innerColourGlcm=[]
+            for(var jj=0;jj<8;jj++)
+                innerColourGlcm.push(`#FFFFFF`)
+            array[ii]=innerColourGlcm;
+        }
+        setInputColour(array);
+    }
+
+    var assign0ToOutputColour=()=>{
+        let arr=params.GlcmColour;
+        for(var i=0;i<arr.length;i++)
+            for(var j=0;j<arr[i].length;j++)
+                arr[i][j]="#FFFFFF"
+        params.setGlcmColour(arr);
+    }
+
+    var clearColour=()=>{
+        assign0ToOutputColour();
+        assign0ToInputColour(inputColour);
+        setForceUpdate(forceUpdate+"_")
+
+    }
 
     return(
         <div id="input">
+            <div>
+                <div>
+                    <button onClick={clearColour} className="btn btn-success align-self-start">Clear Colours</button>
+                </div>
             <table style={{'margin':'20px'}}>
                 <tbody>
-                    <tr key="column_number">
-                        {
-                            glcmArray[0].map((item,index)=>
-                                <td key={index} style={{'padding':'10px','margin':'0px'}}>{index+1}</td>
-                            )
-                        }
-                    </tr>
-                    {glcmArray.map((item,index)=>{
-                        return( 
+                    {params.randomMatrix.map((item,index)=>{
+                        return(
                             <tr key={index}>
                                 {item.map((innerItem,innerIndex)=>{
                                     var string=index+"_"+innerIndex
                                     return(
                                         <td key={string} 
+                                            bgcolor={inputColour[index][innerIndex]}
                                             style={{"borderWidth":"2px", 'borderColor':"#000000", 'borderStyle':'solid','padding':'10px','margin':'0px'}}
-                                            bgcolor={params.GlcmColour[index][innerIndex]}
-                                            onClick={()=>changeColour(index,innerIndex)}
                                         >
                                             {innerItem}
                                         </td>
                                     )
                                 })}
-                                <td key="row_number" style={{'padding':'10px','margin':'0px'}}>{index+1}</td>
-
                             </tr>
                         )
                     })}
                 </tbody>
             </table>
+            </div>
+            <div>
+                <table style={{'margin':'20px'}}>
+                    <tbody>
+                        <tr key="column_number">
+                            {
+                                glcmArray[0].map((item,index)=>
+                                    <td key={index} style={{'padding':'10px','margin':'0px'}}>{index+1}</td>
+                                )
+                            }
+                        </tr>
+                        {glcmArray.map((item,index)=>{
+                            return( 
+                                <tr key={index}>
+                                    {item.map((innerItem,innerIndex)=>{
+                                        var string=index+"_"+innerIndex
+                                        return(
+                                            <td key={string} 
+                                                style={{"borderWidth":"2px", 'borderColor':"#000000", 'borderStyle':'solid','padding':'10px','margin':'0px'}}
+                                                bgcolor={params.GlcmColour[index][innerIndex]}
+                                                onClick={()=>changeColour(index,innerIndex)}
+                                            >
+                                                {innerItem}
+                                            </td>
+                                        )
+                                    })}
+                                    <td key="row_number" style={{'padding':'10px','margin':'0px'}}>{index+1}</td>
+
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </div>    )
 }
 

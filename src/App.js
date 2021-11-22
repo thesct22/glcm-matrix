@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import InputMatrix from './components/inputMatrix';
 import Glcm from './components/Glcm';
 import MakeRandomMatrix from './components/MakeRandomMatrix';
 import GlcmProperties from './components/GlcmProperties';
@@ -49,11 +48,6 @@ function App() {
 
         <div className='container'>
           <div className='row'>
-            <div className="col-12">
-              <div className="form-outline">
-                <InputMatrix randomMatrix={randomMatrix} GlcmColour={GlcmColour} degreeValue={degreeValue} distanceValue={distanceValue} setGlcmColour={setGlcmColour}/>
-              </div>
-            </div>
             <div className="col-12">
               <div className="form-outline">
                 <Glcm randomMatrix={randomMatrix} degreeValue={degreeValue} distanceValue={distanceValue} GlcmColour={GlcmColour} setGlcmColour={setGlcmColour}/>
