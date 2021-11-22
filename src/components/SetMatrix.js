@@ -9,13 +9,13 @@ var SetMatrix=(params)=>{
             <div className="row">
                 <div className="col-12 col-sm-4">
                 <div className="form-outline">
-                    <input type="text" id="formRows" className="form-control" value={params.rows} onChange={params.customRows}/>
+                    <input type="text" id="formRows" className="form-control" onChange={params.customRows}/>
                     <label className="form-label" htmlFor="formRows">Rows</label>
                 </div>
                 </div>
                 <div className="col-12 col-sm-4">
                 <div className="form-outline">
-                    <input type="text" id="formCols" className="form-control" value={params.cols} onChange={params.customCols}/>
+                    <input type="text" id="formCols" className="form-control" onChange={params.customCols}/>
                     <label className="form-label" htmlFor="formCols">Columns</label>
                 </div>
                 </div>

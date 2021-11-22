@@ -31,12 +31,23 @@ function App() {
 
   const customRows=(event)=>{
     var num=parseInt(event.target.value);
-    setRows(isNaN(num)?0:num<3?3:num);
+    setRows(isNaN(num)?3:num<3?3:num);
   }
   const customCols=(event)=>{
     var num=parseInt(event.target.value);
-    setCols(isNaN(num)?0:num<3?3:num);
+    setCols(isNaN(num)?3:num<3?3:num);
   }
+
+  var initialInputColour=[]
+    for(var ii=0;ii<rows;ii++){
+        let innerInputColour=[]
+        for(var jj=0;jj<cols;jj++){
+            innerInputColour.push("#FFFFFF");
+        }
+        initialInputColour.push(innerInputColour);
+  }
+  var [inputColour, setInputColour]=useState(initialInputColour)
+
 
   return (
     <div className="App">
@@ -50,7 +61,7 @@ function App() {
           <div className='row'>
             <div className="col-12">
               <div className="form-outline">
-                <Glcm randomMatrix={randomMatrix} degreeValue={degreeValue} distanceValue={distanceValue} GlcmColour={GlcmColour} setGlcmColour={setGlcmColour}/>
+                <Glcm randomMatrix={randomMatrix} degreeValue={degreeValue} distanceValue={distanceValue} GlcmColour={GlcmColour} setGlcmColour={setGlcmColour} inputColour={inputColour} setInputColour={setInputColour}/>
               </div>
             </div>
           </div>

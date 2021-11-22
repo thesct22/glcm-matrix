@@ -82,15 +82,8 @@ var Glcm=(params)=>{
     assign0();
     assign(glcmArray);
     
-    var initialInputColour=[]
-    for(var ii=0;ii<params.randomMatrix.length;ii++){
-        let innerInputColour=[]
-        for(var jj=0;jj<params.randomMatrix[ii].length;jj++){
-            innerInputColour.push("#FFFFFF");
-        }
-        initialInputColour.push(innerInputColour);
-    }
-    var [inputColour, setInputColour]=useState(initialInputColour)
+    var setInputColour=params.setInputColour;
+    var inputColour=params.inputColour;
     var findColoured=()=>{
         var w,q;
         for(var i=0;i<8;i++){
@@ -143,9 +136,9 @@ var Glcm=(params)=>{
     findColoured()
 
     var assign0ToInputColour=(array)=>{
-        for(var ii=0;ii<8;ii++){
+        for(var ii=0;ii<array.length;ii++){
             let innerColourGlcm=[]
-            for(var jj=0;jj<8;jj++)
+            for(var jj=0;jj<array[ii].length;jj++)
                 innerColourGlcm.push(`#FFFFFF`)
             array[ii]=innerColourGlcm;
         }
@@ -179,6 +172,12 @@ var Glcm=(params)=>{
                         return(
                             <tr key={index}>
                                 {item.map((innerItem,innerIndex)=>{
+                                    if (inputColour[index]===undefined){
+                                        let inner=[]
+                                        for(var qq=0;qq<innerItem.length;qq++)
+                                            inner.push("#FFFFFF");
+                                        inputColour.push(inner);
+                                    }
                                     var string=index+"_"+innerIndex
                                     return(
                                         <td key={string} 
