@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/glcm/static/css/main.518ce94c.chunk.css",
+    "main.js": "/glcm/static/js/main.54a483b5.chunk.js",
+    "main.js.map": "/glcm/static/js/main.54a483b5.chunk.js.map",
+    "runtime-main.js": "/glcm/static/js/runtime-main.742ea8b8.js",
+    "runtime-main.js.map": "/glcm/static/js/runtime-main.742ea8b8.js.map",
+    "static/css/2.ab4638d5.chunk.css": "/glcm/static/css/2.ab4638d5.chunk.css",
+    "static/js/2.e397ab7f.chunk.js": "/glcm/static/js/2.e397ab7f.chunk.js",
+    "static/js/2.e397ab7f.chunk.js.map": "/glcm/static/js/2.e397ab7f.chunk.js.map",
+    "static/js/3.ef212cd9.chunk.js": "/glcm/static/js/3.ef212cd9.chunk.js",
+    "static/js/3.ef212cd9.chunk.js.map": "/glcm/static/js/3.ef212cd9.chunk.js.map",
+    "index.html": "/glcm/index.html",
+    "static/css/2.ab4638d5.chunk.css.map": "/glcm/static/css/2.ab4638d5.chunk.css.map",
+    "static/css/main.518ce94c.chunk.css.map": "/glcm/static/css/main.518ce94c.chunk.css.map",
+    "static/js/2.e397ab7f.chunk.js.LICENSE.txt": "/glcm/static/js/2.e397ab7f.chunk.js.LICENSE.txt",
+    "static/media/mdb.css": "/glcm/static/media/arrow_right.f7c6ac6d.svg",
+    "static/media/all.min.css": "/glcm/static/media/fa-solid-900.eeccf4f6.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.742ea8b8.js",
+    "static/css/2.ab4638d5.chunk.css",
+    "static/js/2.e397ab7f.chunk.js",
+    "static/css/main.518ce94c.chunk.css",
+    "static/js/main.54a483b5.chunk.js"
+  ]
+}
