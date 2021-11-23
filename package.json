@@ -1,6 +1,5 @@
 {
   "name": "glcm-matrix",
-  "homepage": "https://glcm-matrix-thesct22.azurewebsites.net",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
