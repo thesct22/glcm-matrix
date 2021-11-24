@@ -2,35 +2,35 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "nginx-1"
+  name: "glcm-matrix"
   namespace: "default"
   labels:
-    app: "nginx-1"
+    app: "glcm-matrix"
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: "nginx-1"
+      app: "glcm-matrix"
   template:
     metadata:
       labels:
-        app: "nginx-1"
+        app: "glcm-matrix"
     spec:
       containers:
       - name: "glcm-matrix-sha256-1"
-        image: "gcr.io/single-planet-324918/glcm-matrix@sha256:39b5313c8bb03787ee0b2a3f93b661af6749bcc3d7caccfa2a79fb8d181aaaeb"
+        image: "gcr.io/single-planet-324918/glcm-matrix@sha256:184fc2f582b624846aa9a974bcdd8c34badc2295ad4f0308701df4249f9ca5bd"
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "nginx-1-hpa-g6m0"
+  name: "glcm-matrix-hpa-3va7"
   namespace: "default"
   labels:
-    app: "nginx-1"
+    app: "glcm-matrix"
 spec:
   scaleTargetRef:
     kind: "Deployment"
-    name: "nginx-1"
+    name: "glcm-matrix"
     apiVersion: "apps/v1"
   minReplicas: 1
   maxReplicas: 5
