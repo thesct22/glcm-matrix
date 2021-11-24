@@ -1,3 +1,10 @@
+
+## To push to S3 run
+sh```
+aws s3 sync build/ s3://<bucket-name>
+
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
