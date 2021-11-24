@@ -1,6 +1,9 @@
 
 ## To push to S3 run
 sh```
+
+npm run buld
+
 aws s3 sync build/ s3://<bucket-name>
 
 ```
