@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# For development
+All codes are in src. Edit components in the /components direcotry or App.js in src
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To start development server run
 
-## Available Scripts
+```sh
+npm start
+```
 
-In the project directory, you can run:
+To build production build run
 
-### `npm start`
+```sh
+npm run build
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# For Google App Engine
+ Replace contents of package.json with contents of package.json.app-engine
+ Run 
 
-### `npm test`
+ ```sh
+ npm run build
+ gcloud init
+ gcloud app deploy
+ ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ Select the correct project and other details
 
-### `npm run build`
+ # For Google Kubernetes Engine
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ Run
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ ```sh
+ docker build -t gcr.io/<GCP-project-name>/<some-image-name>:<some-tag> .
+ docker push gcr.io/<GCP-project-name>/<some-image-name>:<some-tag>
+ ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ Create a GKE cluster on console.
+ Create a deployment inside the cluster by running the gke.yaml file with kubectl 
+ Then create a load balancer service for the deployment and expose port 80 to external traffic with load-balancer.yaml
 
-### `npm run eject`
+ Make sure you are in the same directory as the yaml files when running the below commands
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+ ```sh
+ kubectl apply -f gke.yaml
+ kubectl apply -f load-balancer.yaml
+ ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+ This will deploy the app to GKE.
+ If you go to ingress and service tab you can find the public IP of the load balancer
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# For AWS S3
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Create S3 bucket, make it public and enable the given bucket policy in permissions and then enable static website hosting in properties.
 
-## Learn More
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadForGetBucketObjects",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::glcm-matrix-thesct22/*"
+        }
+    ]
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Have AWS CLI installed on system
+Then run the following commands and configure AWS CLI with an AWS IAM key and secret as instructed by the CLI on run time.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+npm run build
+aws configure
+aws s3 sync build/ s3://<bucket-name>
+```
 
-### Code Splitting
+Later you can find the URL in the static website tab in properties.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# For GitHub Pages
 
-### Analyzing the Bundle Size
+ Replace contents of package.json with contents of package.json.gh-pages
+ Run 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+ ```sh
+ npm run build
+ npm run deploy
+ ```
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ Later go to pages tab in settings of your repository for the link to your webpage.

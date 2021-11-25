@@ -1,0 +1,42 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "glcm-matrix"
+  namespace: "default"
+  labels:
+    app: "glcm-matrix"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "glcm-matrix"
+  template:
+    metadata:
+      labels:
+        app: "glcm-matrix"
+    spec:
+      containers:
+      - name: "glcm-matrix-sha256-1"
+      # image should contain name of the image that you pushed to  gcr.io
+        image: "gcr.io/single-planet-324918/glcm-matrix@sha256:184fc2f582b624846aa9a974bcdd8c34badc2295ad4f0308701df4249f9ca5bd"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "glcm-matrix-hpa-3va7"
+  namespace: "default"
+  labels:
+    app: "glcm-matrix"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "glcm-matrix"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
