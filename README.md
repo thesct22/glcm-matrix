@@ -1,3 +1,12 @@
+# To deploy to app engine run
+
+sh```
+
+npm run build
+
+gcloud app deploy
+
+```
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

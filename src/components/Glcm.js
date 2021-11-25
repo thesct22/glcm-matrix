@@ -54,8 +54,8 @@ var Glcm=(params)=>{
             else if(params.degreeValue===90){
                 for(i=0;i<params.randomMatrix[0].length;i++)
                     for(j=0;j<params.randomMatrix.length-params.distanceValue+1;j++){
-                        c=params.randomMatrix[j][i];
-                        r=params.randomMatrix[j+params.distanceValue-1][i];
+                        r=params.randomMatrix[j][i];
+                        c=params.randomMatrix[j+params.distanceValue-1][i];
                         if(c!==undefined)
                             matrix[r-1][c-1]+=1;
                     }
@@ -102,7 +102,7 @@ var Glcm=(params)=>{
                     else if(params.degreeValue===90){
                         for(q=0;q<params.randomMatrix.length-params.distanceValue+1;q++){
                             for(w=0;w<params.randomMatrix[q].length;w++){
-                                if(params.randomMatrix[q][w]===j+1&&params.randomMatrix[q+params.distanceValue-1][w]===i+1){
+                                if(params.randomMatrix[q][w]===i+1&&params.randomMatrix[q+params.distanceValue-1][w]===j+1){
                                     inputColour[q][w]=params.GlcmColour[i][j];
                                     inputColour[q+params.distanceValue-1][w]=params.GlcmColour[i][j];                                    
                                 }
