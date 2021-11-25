@@ -18,6 +18,7 @@ spec:
     spec:
       containers:
       - name: "glcm-matrix-sha256-1"
+      # image should contain name of the image that you pushed to  gcr.io
         image: "gcr.io/single-planet-324918/glcm-matrix@sha256:184fc2f582b624846aa9a974bcdd8c34badc2295ad4f0308701df4249f9ca5bd"
 ---
 apiVersion: "autoscaling/v2beta1"
